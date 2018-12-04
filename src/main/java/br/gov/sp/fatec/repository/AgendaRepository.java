@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import br.gov.sp.fatec.model.Anotacao;
+import br.gov.sp.fatec.model.Agenda;
 
-public interface AnotacaoRepository extends CrudRepository<Anotacao, Long> {
+public interface AgendaRepository extends CrudRepository<Agenda, Long> {
 	
-	public List<Anotacao> findByUsuarioNome(String nome);
+	public List<Agenda> findByUsuarioNome(String nome);
 
 }

@@ -56,6 +56,9 @@ public class UsuarioController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@JsonView(View.UsuarioCompleto.class)
 	public ResponseEntity<Usuario> save(@RequestBody Usuario usuario, UriComponentsBuilder uriComponentsBuilder) {
+		System.out.println("Iniciando cadastro de morador");
+		System.out.println(usuario.getNome());
+		System.out.println(usuario);
 		usuario = usuarioService.salvar(usuario);
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setLocation(uriComponentsBuilder.path("/getById?id=" + usuario.getId()).build().toUri());

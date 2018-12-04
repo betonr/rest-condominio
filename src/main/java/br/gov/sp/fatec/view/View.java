@@ -24,7 +24,7 @@ public class View {
 	public static class UsuarioResumoAlternativo {
 	}
 	
-	public static class Anotacao {
+	public static class Agenda {
 	}
 	
 	public static class Autorizacao {

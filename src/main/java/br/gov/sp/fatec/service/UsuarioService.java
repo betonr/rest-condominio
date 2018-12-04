@@ -6,7 +6,9 @@ import br.gov.sp.fatec.model.Usuario;
 
 public interface UsuarioService {
 	
-	public Usuario incluirUsuario(String nome, String senha, String nomeAutorizacao);
+	public Usuario incluirUsuario(String nome, String senha,
+			String cpf, String celular, String apartamento, String carro, String bloco, 
+			boolean possui_animal_estimacao, String nomeAutorizacao);
 	
 	public List<Usuario> buscar(String nome);
 	

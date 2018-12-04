@@ -17,7 +17,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -37,15 +36,39 @@ public class Usuario implements UserDetails{
 	@Id 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "USR_ID")
-	@JsonView({View.UsuarioCompleto.class, View.UsuarioResumoAlternativo.class, View.Anotacao.class})
+	@JsonView({View.UsuarioCompleto.class, View.UsuarioResumoAlternativo.class, View.Agenda.class})
 	private Long id;
     
-    @Column(name = "USR_NOME", unique=true, length = 20, nullable = false)
-    @JsonView({View.UsuarioResumo.class, View.UsuarioResumoAlternativo.class, View.Anotacao.class})
+	@Column(name = "USR_NOME", unique=true, length = 20, nullable = false)
+    @JsonView({View.UsuarioResumo.class, View.UsuarioResumoAlternativo.class, View.Agenda.class})
     private String nome;
+	
+	@Column(name = "USR_CPF", unique=true, length = 20, nullable = false)
+    @JsonView({View.UsuarioResumo.class, View.UsuarioResumoAlternativo.class, View.Agenda.class})
+    private String cpf;
+	
+	@Column(name = "USR_CELULAR", length = 20, nullable = false)
+    @JsonView({View.UsuarioCompleto.class, View.UsuarioResumoAlternativo.class})
+    private String celular;
+	
+	@Column(name = "USR_APARTAMENTO", length = 20, nullable = false)
+    @JsonView({View.UsuarioResumo.class, View.UsuarioResumoAlternativo.class})
+    private String apartamento;
+	
+	@Column(name = "USR_CARRO", length = 20)
+    @JsonView({View.UsuarioResumo.class, View.UsuarioResumoAlternativo.class})
+    private String carro;
+	
+	@Column(name = "USR_BLOCO", length = 10)
+    @JsonView({View.UsuarioResumo.class})
+    private String bloco;
+	
+	@Column(name = "USR_ANIMAL_ESTIMACAO")
+    @JsonView({View.UsuarioResumoAlternativo.class})
+    private boolean possui_animal_estimacao;
     
     @Column(name = "USR_SENHA", length = 50, nullable = false)
-    @JsonView(View.UsuarioCompleto.class)
+    @JsonView({View.UsuarioCompleto.class})
     private String senha;
     
     @ManyToMany(fetch = FetchType.EAGER)
@@ -70,6 +93,54 @@ public class Usuario implements UserDetails{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+	
+	public String getApartamento() {
+		return apartamento;
+	}
+
+	public void setApartamento(String apartamento) {
+		this.apartamento = apartamento;
+	}
+	
+	public String getCarro() {
+		return carro;
+	}
+
+	public void setCarro(String carro) {
+		this.carro = carro;
+	}
+	
+	public String getBloco() {
+		return bloco;
+	}
+
+	public void setBloco(String bloco) {
+		this.bloco = bloco;
+	}
+
+	public boolean getPossuiAnimal() {
+		return possui_animal_estimacao;
+	}
+
+	public void setPossuiAnimal(boolean possui_animal_estimacao) {
+		this.possui_animal_estimacao = possui_animal_estimacao;
 	}
 
 	public String getSenha() {

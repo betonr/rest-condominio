@@ -33,25 +33,25 @@ public class AutorizacaoController {
 	}
 	
 	@RequestMapping(value = "/get/{nome}", method = RequestMethod.GET)
-	@JsonView(View.Anotacao.class)
+	@JsonView(View.Agenda.class)
 	public ResponseEntity<Collection<Autorizacao>> pesquisar(@PathVariable("nome") String nome) {
 		return new ResponseEntity<Collection<Autorizacao>>(autorizacaoService.buscar(nome), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
-	@JsonView(View.Anotacao.class)
+	@JsonView(View.Agenda.class)
 	public ResponseEntity<Autorizacao> pesquisarPorId(@PathVariable("id") Long id) {
 		return new ResponseEntity<Autorizacao>(autorizacaoService.buscarPorId(id), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
-	@JsonView(View.Anotacao.class)
+	@JsonView(View.Agenda.class)
 	public ResponseEntity<Collection<Autorizacao>> getAll() {
 		return new ResponseEntity<Collection<Autorizacao>>(autorizacaoService.todos(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	@JsonView(View.Anotacao.class)
+	@JsonView(View.Agenda.class)
 	public ResponseEntity<Autorizacao> salvar(@RequestBody Autorizacao autorizacao, UriComponentsBuilder uriComponentsBuilder) {
 		autorizacao = autorizacaoService.salvar(autorizacao);
 		HttpHeaders responseHeaders = new HttpHeaders();

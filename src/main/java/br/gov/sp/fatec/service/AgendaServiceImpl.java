@@ -10,23 +10,23 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.gov.sp.fatec.model.Anotacao;
+import br.gov.sp.fatec.model.Agenda;
 import br.gov.sp.fatec.model.Usuario;
-import br.gov.sp.fatec.repository.AnotacaoRepository;
+import br.gov.sp.fatec.repository.AgendaRepository;
 import br.gov.sp.fatec.repository.UsuarioRepository;
 
-@Service("anotacaoService")
+@Service("agendaService")
 @Transactional
-public class AnotacaoServiceImpl implements AnotacaoService {
+public class AgendaServiceImpl implements AgendaService {
 
 	@Autowired
-	private AnotacaoRepository anotacaoRepo;
+	private AgendaRepository agendaRepo;
 	
 	@Autowired
 	private UsuarioRepository usuarioRepo;
 	
-	public void setAnotacaoRepo(AnotacaoRepository anotacaoRepo) {
-		this.anotacaoRepo = anotacaoRepo;
+	public void setAnotacaoRepo(AgendaRepository agendaRepo) {
+		this.agendaRepo = agendaRepo;
 	}
 	
 	public void setUsuarioRepo(UsuarioRepository usuarioRepo) {
@@ -35,9 +35,9 @@ public class AnotacaoServiceImpl implements AnotacaoService {
 	
 	@Override
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public Anotacao salvar(Anotacao anotacao) {
-		if(anotacao.getUsuario() != null) {
-			Usuario usuario = anotacao.getUsuario();
+	public Agenda salvar(Agenda agenda) {
+		if(agenda.getUsuario() != null) {
+			Usuario usuario = agenda.getUsuario();
 			if(usuario.getId() != null) {
 				usuario = usuarioRepo.findById(usuario.getId()).get();
 			}
@@ -45,39 +45,39 @@ public class AnotacaoServiceImpl implements AnotacaoService {
 				usuario = usuarioRepo.save(usuario);
 			}
 		}
-		anotacao.setDataHora(new Date());
-		return anotacaoRepo.save(anotacao);
+		agenda.setDataHora(new Date());
+		return agendaRepo.save(agenda);
 	}
 
 	@Override
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public void excluir(Long idAnotacao) {
-		anotacaoRepo.deleteById(idAnotacao);
+	public void excluir(Long idAgenda) {
+		agendaRepo.deleteById(idAgenda);
 	}
 
 	@Override
 	@PreAuthorize("isAuthenticated()")
-	public List<Anotacao> todos() {
-		List<Anotacao> retorno = new ArrayList<Anotacao>();
-		for(Anotacao anotacao: anotacaoRepo.findAll()) {
-			retorno.add(anotacao);
+	public List<Agenda> todos() {
+		List<Agenda> retorno = new ArrayList<Agenda>();
+		for(Agenda agenda: agendaRepo.findAll()) {
+			retorno.add(agenda);
 		}
 		return retorno;
 	}
 
 	@Override
 	@PreAuthorize("isAuthenticated()")
-	public List<Anotacao> buscarPorUsuario(String nome) {
+	public List<Agenda> buscarPorUsuario(String nome) {
 		if(nome == null || nome.isEmpty()) {
 			return todos();
 		}
-		return anotacaoRepo.findByUsuarioNome(nome);
+		return agendaRepo.findByUsuarioNome(nome);
 	}
 
 	@Override
 	@PreAuthorize("isAuthenticated()")
-	public Anotacao buscarPorId(Long idAnotacao) {
-		Optional<Anotacao> anotacao = anotacaoRepo.findById(idAnotacao);
+	public Agenda buscarPorId(Long idAnotacao) {
+		Optional<Agenda> anotacao = agendaRepo.findById(idAnotacao);
 		if(anotacao.isPresent()) {
 			return anotacao.get();
 		}

@@ -22,12 +22,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-				.addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-				.exceptionHandling().authenticationEntryPoint(new RestAuthenticationEntryPoint())
-				.and()
-				// this disables session creation on Spring Security
-				.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+			.authorizeRequests()
+	        .antMatchers("/usuario/**").hasRole("ADMIN")
+	        .antMatchers("/**").permitAll() 
+	        .anyRequest().permitAll()
+	        .and()
+			.addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+			.exceptionHandling().authenticationEntryPoint(new RestAuthenticationEntryPoint())
+			.and()
+			// this disables session creation on Spring Security
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
 	@Override

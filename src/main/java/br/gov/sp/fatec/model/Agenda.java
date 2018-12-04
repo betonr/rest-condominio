@@ -23,32 +23,28 @@ import com.fasterxml.jackson.annotation.JsonView;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
-@Table(name = "ANT_ANOTACAO")
-public class Anotacao implements Serializable {
+@Table(name = "AG_AGENDA")
+public class Agenda implements Serializable {
 
 	private static final long serialVersionUID = -4175224450033765996L;
 
 	@Id 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "ANT_ID")
-	@JsonView(View.Anotacao.class)
+    @Column(name = "AG_ID")
+	@JsonView(View.Agenda.class)
 	private Long id;
     
-    @Column(name = "ANT_ASSUNTO", length = 100, nullable = false)
-    @JsonView(View.Anotacao.class)
-    private String assunto;
+    @Column(name = "AG_OBSERVACAO", length = 500, nullable = false)
+    @JsonView(View.Agenda.class)
+    private String observacao;
     
-    @Column(name = "ANT_TEXTO", length = 500, nullable = false)
-    @JsonView(View.Anotacao.class)
-    private String texto;
-    
-    @Column(name = "ANT_DATA_HORA", nullable = false)
-    @JsonView(View.Anotacao.class)
+    @Column(name = "AG_DATA_HORA", nullable = false)
+    @JsonView(View.Agenda.class)
     private Date dataHora;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USR_CRIACAO_ID")
-    @JsonView(View.Anotacao.class)
+    @JsonView(View.Agenda.class)
     private Usuario usuario;
     
 	public Long getId() {
@@ -59,20 +55,12 @@ public class Anotacao implements Serializable {
 		this.id = id;
 	}
 
-	public String getAssunto() {
-		return assunto;
+	public String getObservacao() {
+		return observacao;
 	}
 
-	public void setAssunto(String assunto) {
-		this.assunto = assunto;
-	}
-
-	public String getTexto() {
-		return texto;
-	}
-
-	public void setTexto(String texto) {
-		this.texto = texto;
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	public Date getDataHora() {

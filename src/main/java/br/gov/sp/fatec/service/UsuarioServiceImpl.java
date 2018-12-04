@@ -37,7 +37,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@Transactional
-	public Usuario incluirUsuario(String nome, String senha, String nomeAutorizacao) {
+	public Usuario incluirUsuario(String nome, String senha,
+			String cpf, String celular, String apartamento, String carro, String bloco, 
+			boolean possui_animal_estimacao, String nomeAutorizacao) {
 		Autorizacao autorizacao = autorizacaoRepo.findByNome(nomeAutorizacao);
 		// Se nao existe
 		if(autorizacao == null) {
@@ -48,6 +50,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		Usuario usuario = new Usuario();
 		usuario.setNome(nome);
+		usuario.setCpf(cpf);
+		usuario.setCelular(celular);
+		usuario.setApartamento(apartamento);
+		usuario.setCarro(carro);
+		usuario.setBloco(bloco);
+		usuario.setPossuiAnimal(possui_animal_estimacao);
 		usuario.setSenha(md5(senha));
 		usuario.setAutorizacoes(new ArrayList<Autorizacao>());
 		usuario.getAutorizacoes().add(autorizacao);

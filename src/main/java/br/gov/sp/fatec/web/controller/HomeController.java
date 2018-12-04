@@ -10,7 +10,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/")
 	public String hello() {
-		return "Olá";
+		return "Hello World";
 	}
 
 }
