@@ -23,8 +23,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.authorizeRequests()
-	        .antMatchers("/usuario/**").hasRole("ADMIN")
-	        .antMatchers("/**").permitAll() 
+//	        .antMatchers("/usuario/**").hasRole("ADMIN")
+//	        .antMatchers("/**").permitAll() 
 	        .anyRequest().permitAll()
 	        .and()
 			.addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)

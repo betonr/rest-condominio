@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 @RequestMapping(value = "/usuario")
+@CrossOrigin
 public class UsuarioController {
 	
 	@Autowired
@@ -56,13 +58,20 @@ public class UsuarioController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@JsonView(View.UsuarioCompleto.class)
 	public ResponseEntity<Usuario> save(@RequestBody Usuario usuario, UriComponentsBuilder uriComponentsBuilder) {
-		System.out.println("Iniciando cadastro de morador");
-		System.out.println(usuario.getNome());
-		System.out.println(usuario);
 		usuario = usuarioService.salvar(usuario);
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setLocation(uriComponentsBuilder.path("/getById?id=" + usuario.getId()).build().toUri());
 		return new ResponseEntity<Usuario>(usuario, responseHeaders, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	@JsonView(View.UsuarioCompleto.class)
+	public ResponseEntity<String> delete(@RequestParam(value="id") Long id, UriComponentsBuilder uriComponentsBuilder) {
+		boolean success = usuarioService.delete(id);
+		if(success) {
+			return new ResponseEntity<String>("Usuário: "+id+" deletado com sucesso!", HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("Erro ao deletar o usuário: "+id, HttpStatus.BAD_REQUEST);
 	}
 	
 }

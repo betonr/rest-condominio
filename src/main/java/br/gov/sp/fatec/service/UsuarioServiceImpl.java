@@ -77,6 +77,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		return null;
 	}
+	
+	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public boolean delete(Long id) {
+		Optional<Usuario> usuario =  usuarioRepo.findById(id);
+		if(usuario.isPresent()) {
+			usuarioRepo.delete(usuario.get());
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	@PreAuthorize("isAuthenticated()")

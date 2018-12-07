@@ -14,6 +14,8 @@ public interface UsuarioService {
 	
 	public Usuario buscar(Long id);
 	
+	public boolean delete(Long id);
+	
 	public List<Usuario> todos();
 	
 	public Usuario salvar(Usuario usuario);

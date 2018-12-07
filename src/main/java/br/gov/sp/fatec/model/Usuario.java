@@ -56,11 +56,11 @@ public class Usuario implements UserDetails{
     private String apartamento;
 	
 	@Column(name = "USR_CARRO", length = 20)
-    @JsonView({View.UsuarioResumo.class, View.UsuarioResumoAlternativo.class})
+    @JsonView({View.UsuarioResumo.class})
     private String carro;
 	
 	@Column(name = "USR_BLOCO", length = 10)
-    @JsonView({View.UsuarioResumo.class})
+    @JsonView({View.UsuarioResumo.class, View.UsuarioResumoAlternativo.class})
     private String bloco;
 	
 	@Column(name = "USR_ANIMAL_ESTIMACAO")
