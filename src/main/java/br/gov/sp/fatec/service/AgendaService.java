@@ -8,12 +8,12 @@ public interface AgendaService {
 	
 	public Agenda salvar(Agenda autorizacao);
 	
-	public void excluir(Long idAnotacao);
+	public boolean delete(Long idAgenda);
 	
 	public List<Agenda> todos();
 	
 	public List<Agenda> buscarPorUsuario(String nome);
 	
-	public Agenda buscarPorId(Long idAnotacao);
+	public Agenda buscarPorId(Long idAgenda);
 
 }

@@ -34,7 +34,7 @@ public class AgendaServiceImpl implements AgendaService {
 	}
 	
 	@Override
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	public Agenda salvar(Agenda agenda) {
 		if(agenda.getUsuario() != null) {
 			Usuario usuario = agenda.getUsuario();
@@ -45,14 +45,18 @@ public class AgendaServiceImpl implements AgendaService {
 				usuario = usuarioRepo.save(usuario);
 			}
 		}
-		agenda.setDataHora(new Date());
 		return agendaRepo.save(agenda);
 	}
 
 	@Override
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public void excluir(Long idAgenda) {
-		agendaRepo.deleteById(idAgenda);
+	@PreAuthorize("isAuthenticated()")
+	public boolean delete(Long idAgenda) {
+		Optional<Agenda> agenda =  agendaRepo.findById(idAgenda);
+		if(agenda.isPresent()) {
+			agendaRepo.delete(agenda.get());
+			return true;
+		}
+		return false;
 	}
 
 	@Override

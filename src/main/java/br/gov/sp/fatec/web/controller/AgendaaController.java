@@ -21,9 +21,9 @@ import br.gov.sp.fatec.view.View;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
-@RequestMapping(value = "/anotacao")
+@RequestMapping(value = "/aged")
 @CrossOrigin
-public class AnotacaoController {
+public class AgendaaController {
 	
 	@Autowired
 	private AgendaService anotacaoService;
